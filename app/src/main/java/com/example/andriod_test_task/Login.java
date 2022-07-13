@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 
 public class Login extends AppCompatActivity {
-    // test gits
+    // test git
 
     private static HttpURLConnection connection;
     ArrayList<String> name = new ArrayList<>();
