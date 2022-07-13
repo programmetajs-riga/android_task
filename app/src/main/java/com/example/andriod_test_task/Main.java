@@ -145,7 +145,7 @@ public class Main extends AppCompatActivity {
 
     }
 
-   /*  public class Json extends AsyncTask<String, String, String> {
+   /*   public class JsonSportName extends AsyncTask<String, String, String> {
 
 
 
@@ -167,6 +167,7 @@ public class Main extends AppCompatActivity {
                     responseContent.append(line);
                 }
 
+                ArrayList<String> name = new ArrayList<>();
 
                 JSONArray jsonArray=new JSONArray(responseContent.toString());
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -174,6 +175,7 @@ public class Main extends AppCompatActivity {
                     name.add(jsonObject.getString("name"));
 
                 }
+                String[] stringArray = name.toArray(new String[0]);
 
 
                 return null;

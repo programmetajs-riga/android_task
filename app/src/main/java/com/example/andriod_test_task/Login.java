@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity {
     // test git
 
     private static HttpURLConnection connection;
-    ArrayList<String> name = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,8 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(Login.this, Main.class);
                 startActivity(intent);
 
-           //    new  PostMethod().execute();
+           // метод назодиться в коментах чтобы не тратить драгоценные 50 запросов в день!
+                // new  PostMethod().execute();
 
 
 
@@ -83,7 +84,6 @@ public class Login extends AppCompatActivity {
                     String test = urlConnection.getResponseMessage();
                     int responseCode = urlConnection.getResponseCode();
                     if (responseCode == 200) {
-                        urlConnection.disconnect();
                         Intent intent = new Intent(Login.this, Main.class);
                         startActivity(intent);
                         return null;
@@ -98,7 +98,8 @@ public class Login extends AppCompatActivity {
                     ex.printStackTrace();
                 }
 
-            } catch (MalformedURLException e) {
+            }
+            catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
