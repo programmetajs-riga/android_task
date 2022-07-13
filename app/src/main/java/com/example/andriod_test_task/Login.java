@@ -115,7 +115,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    public class JsonGet1 extends AsyncTask<String , Void ,String> {
+  /*  public class JsonGet1 extends AsyncTask<String , Void ,String> {
 
 
         @Override
@@ -172,7 +172,7 @@ public class Login extends AppCompatActivity {
             super.onPostExecute(s);
 
         }
-    }
+    }*/
 
 
 

@@ -43,15 +43,7 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
-        Intent intent = new Intent(Main.this,ConnectionJson.class);
-        startActivity(intent);
-
-        super.onStart();
         list=findViewById(R.id.view);
-
-
-
 
         CustomAdapter adapter = new CustomAdapter(getApplicationContext(),SportName,image);
         list.setAdapter(adapter);
@@ -106,7 +98,7 @@ public class Main extends AppCompatActivity {
 
             try {
                 String line;
-                URL url = new URL("https://engine.free.beeceptor.com/api/getServices");
+                URL url = new URL("https://engine.free.beeceptor.com/api/getSportDetails?sportId="+urlid);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 readers = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -153,7 +145,7 @@ public class Main extends AppCompatActivity {
 
     }
 
-   /* public class Json extends AsyncTask<String, String, String> {
+   /*  public class Json extends AsyncTask<String, String, String> {
 
 
 
