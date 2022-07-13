@@ -28,7 +28,7 @@ public class Main extends AppCompatActivity {
 
 
 
-    String SportName[] ={"American Footbal" , "Basketball" , "Criket","Mixed Artials Arts","Rugby League","Soccer-Other"};
+    String SportName[] ={"American Football" , "Basketball" , "Criket","Mixed Artials Arts","Rugby League","Soccer-Other"};
     int image[] = {R.drawable.rugby,R.drawable.basketball,R.drawable.cricket,R.drawable.box,R.drawable.rugby,R.drawable.soccer};
 
 
