@@ -29,10 +29,6 @@ public class Main extends AppCompatActivity {
 
     String stringArray[]={};
     int image[] = {R.drawable.rugby,R.drawable.basketball,R.drawable.cricket,R.drawable.box,R.drawable.rugby,R.drawable.soccer};
-
-
-
-
     ListView list;
 
     private static HttpURLConnection connection;
