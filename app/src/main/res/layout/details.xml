@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".details">
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="361dp"
+        android:layout_height="342dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.32"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="360dp"
+            android:layout_height="330dp"
+            android:background="@drawable/details_container" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="50dp"
+            android:drawableLeft="@drawable/time"
+
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="200dp"
+            android:layout_marginTop="50dp"
+            android:drawableLeft="@drawable/calendar"
+
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="100dp"
+
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/adress"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="150dp"
+            android:drawableRight="@drawable/znak"
+
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="200dp"
+            android:drawableRight="@drawable/telefon"
+
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="250dp"
+
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/backbtn"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/left"
+        android:background="@drawable/custom_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+
+</RelativeLayout>
