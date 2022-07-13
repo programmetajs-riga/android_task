@@ -27,8 +27,7 @@ import java.util.ArrayList;
 public class Main extends AppCompatActivity {
 
 
-
-    String SportName[] ={"American Football" , "Basketball" , "Criket","Mixed Artials Arts","Rugby League","Soccer-Other"};
+    String stringArray[]={};
     int image[] = {R.drawable.rugby,R.drawable.basketball,R.drawable.cricket,R.drawable.box,R.drawable.rugby,R.drawable.soccer};
 
 
@@ -44,9 +43,9 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         list=findViewById(R.id.view);
+        String id="1";
+        new ConnectionJson().execute(stringArray);
 
-        CustomAdapter adapter = new CustomAdapter(getApplicationContext(),SportName,image);
-        list.setAdapter(adapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -54,29 +53,47 @@ public class Main extends AppCompatActivity {
                 if(i==0){
                     String id="1";
 
-                    new ConnectionJson().execute(id);
+                    Intent intent = new Intent(Main.this,details.class);
+
+                    intent.putExtra("Value1",id);
+                    startActivity(intent);
 
                 }else if(i==1){
                     String id="2";
 
-                    new ConnectionJson().execute(id);
+                    Intent intent = new Intent(Main.this,details.class);
+
+                    intent.putExtra("Value1",id);
+                    startActivity(intent);
 
                 }else if(i==2){
                     String id="3";
 
-                    new ConnectionJson().execute(id);
+                    Intent intent = new Intent(Main.this,details.class);
+
+                    intent.putExtra("Value1",id);
+                    startActivity(intent);
                 }else if(i==3){
                     String id="4";
 
-                    new ConnectionJson().execute(id);
+                    Intent intent = new Intent(Main.this,details.class);
+
+                    intent.putExtra("Value1",id);
+                    startActivity(intent);
                 }else if(i==4){
                     String id="5";
 
-                    new ConnectionJson().execute(id);
+                    Intent intent = new Intent(Main.this,details.class);
+
+                    intent.putExtra("Value1",id);
+                    startActivity(intent);
                 }else if(i==5){
                     String id="6";
 
-                    new ConnectionJson().execute(id);
+                    Intent intent = new Intent(Main.this,details.class);
+
+                    intent.putExtra("Value1",id);
+                    startActivity(intent);
                 }
 
             }
@@ -85,73 +102,15 @@ public class Main extends AppCompatActivity {
 
     }
 
-    public class ConnectionJson extends AsyncTask<String, String, String> {
+
+
+    public class ConnectionJson extends AsyncTask<String, String, String[]> {
 
 
 
         @Override
-        protected String doInBackground(String... strings) {
-            String urlid=strings[0];
-            BufferedReader readers;
-            StringBuffer responseContent = new StringBuffer();
+        protected String[] doInBackground(String... string) {
 
-
-            try {
-                String line;
-                URL url = new URL("https://engine.free.beeceptor.com/api/getSportDetails?sportId="+urlid);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                readers = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                int status = connection.getResponseCode();
-                while((line = readers.readLine()) != null){
-
-                    responseContent.append(line);
-                }
-
-                String content = responseContent.toString();
-
-                JSONObject jsonObject =new JSONObject(content);
-
-                String name = jsonObject.getString("name");
-                String adress = jsonObject.getString("address");
-                String phone = jsonObject.getString("phone");
-                String price = jsonObject.getString("price");
-                String currency = jsonObject.getString("currency");
-
-                Intent intent = new Intent(Main.this,details.class);
-
-                intent.putExtra("Value1",name);
-                intent.putExtra("Value2",adress);
-                intent.putExtra("Value3",phone);
-                intent.putExtra("Value4",price);
-                intent.putExtra("Value5",currency);
-                startActivity(intent);
-                finish();
-
-                return null;
-
-            } catch (IOException e) {
-                connection.disconnect();
-            }catch(JSONException e){
-                connection.disconnect();
-            }
-            finally {
-                connection.disconnect();
-            }
-
-            return null;
-        }
-
-
-    }
-
-   /*   public class JsonSportName extends AsyncTask<String, String, String> {
-
-
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String urlid=strings[0];
             BufferedReader readers;
             StringBuffer responseContent = new StringBuffer();
 
@@ -173,12 +132,10 @@ public class Main extends AppCompatActivity {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     name.add(jsonObject.getString("name"));
-
+                    stringArray = name.toArray(new String[i]);
                 }
-                String[] stringArray = name.toArray(new String[0]);
 
-
-                return null;
+                return stringArray;
 
             } catch (IOException e) {
                 connection.disconnect();
@@ -189,9 +146,18 @@ public class Main extends AppCompatActivity {
                 connection.disconnect();
             }
 
-            return null;
+            return stringArray;
         }
-    }*/
+
+        @Override
+        protected void onPostExecute(String[] strings){
+            super.onPostExecute(strings);
+            CustomAdapter adapter = new CustomAdapter(getApplicationContext(),stringArray,image);
+            list.setAdapter(adapter);
+        }
+
+
+    }
 
 
 }
