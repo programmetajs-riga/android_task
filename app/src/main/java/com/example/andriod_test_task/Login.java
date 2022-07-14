@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 
 public class Login extends AppCompatActivity {
-    // test git
+
 
     private static HttpURLConnection connection;
 
@@ -81,7 +81,6 @@ public class Login extends AppCompatActivity {
                     wr.flush();
                     wr.close();
                     urlConnection.connect();
-                    String test = urlConnection.getResponseMessage();
                     int responseCode = urlConnection.getResponseCode();
                     if (responseCode == 200) {
                         Intent intent = new Intent(Login.this, Main.class);
@@ -115,67 +114,5 @@ public class Login extends AppCompatActivity {
 
         }
     }
-
-  /*  public class JsonGet1 extends AsyncTask<String , Void ,String> {
-
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String urlid=strings[0];
-            BufferedReader readers;
-            StringBuffer responseContent = new StringBuffer();
-
-
-            try {
-                String line;
-                URL url = new URL("https://engine.free.beeceptor.com/api/getServices");
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                readers = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                int status = connection.getResponseCode();
-                while((line = readers.readLine()) != null){
-
-                    responseContent.append(line);
-                }
-
-
-                JSONArray jsonArray=new JSONArray(responseContent.toString());
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    name.add(jsonObject.getString("name"));
-
-                }
-                String[] stringArray = name.toArray(new String[0]);
-
-
-
-
-
-
-
-
-                return null;
-
-            } catch (IOException e) {
-                connection.disconnect();
-            }catch(JSONException e){
-                connection.disconnect();
-            }
-            finally {
-                connection.disconnect();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-        }
-    }*/
-
-
-
 
 }

@@ -24,13 +24,6 @@ public class details extends AppCompatActivity {
     TextView address;
     TextView phone;
     TextView prices;
-
-
-    String contentphone;
-    String contentprice;
-    String contentname;
-    String contentaddress;
-    String contentcurrency;
     String id;
     private static HttpURLConnection connection;
 
@@ -77,7 +70,6 @@ public class details extends AppCompatActivity {
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 readers = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                int status = connection.getResponseCode();
                 while((line = readers.readLine()) != null){
 
                     responseContent.append(line);
@@ -87,16 +79,23 @@ public class details extends AppCompatActivity {
 
                 JSONObject jsonObject =new JSONObject(content);
 
+
                 String name = jsonObject.getString("name");
                 String adress = jsonObject.getString("address");
                 String phones = jsonObject.getString("phone");
-                String price = jsonObject.getString("price");
-                String currency = jsonObject.getString("currency");
+                try{
+                    String price = jsonObject.getString("price");
+                    String currency = jsonObject.getString("currency");
+                    prices.setText(price + currency);
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+
 
                 names.setText(name);
                 address.setText(adress);
                 phone.setText(phones);;
-                prices.setText(price + currency);
+
 
 
                 return null;

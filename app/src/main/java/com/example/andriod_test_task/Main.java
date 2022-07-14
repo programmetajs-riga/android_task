@@ -30,7 +30,8 @@ public class Main extends AppCompatActivity {
     String stringArray[]={};
     int image[] = {R.drawable.rugby,R.drawable.basketball,R.drawable.cricket,R.drawable.box,R.drawable.rugby,R.drawable.soccer};
     ListView list;
-
+    String ID[];
+    String id;
     private static HttpURLConnection connection;
 
 
@@ -39,15 +40,16 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         list=findViewById(R.id.view);
-        String id="1";
-        new ConnectionJson().execute(stringArray);
+
+        new ConnectionJson().execute();
+
 
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i==0){
-                    String id="1";
+                     id=ID[i];
 
                     Intent intent = new Intent(Main.this,details.class);
 
@@ -55,7 +57,8 @@ public class Main extends AppCompatActivity {
                     startActivity(intent);
 
                 }else if(i==1){
-                    String id="2";
+                     id=ID[i];
+
 
                     Intent intent = new Intent(Main.this,details.class);
 
@@ -63,28 +66,28 @@ public class Main extends AppCompatActivity {
                     startActivity(intent);
 
                 }else if(i==2){
-                    String id="3";
+                     id=ID[i];
 
                     Intent intent = new Intent(Main.this,details.class);
 
                     intent.putExtra("Value1",id);
                     startActivity(intent);
                 }else if(i==3){
-                    String id="4";
+                     id=ID[i];
 
                     Intent intent = new Intent(Main.this,details.class);
 
                     intent.putExtra("Value1",id);
                     startActivity(intent);
                 }else if(i==4){
-                    String id="5";
+                     id=ID[i];
 
                     Intent intent = new Intent(Main.this,details.class);
 
                     intent.putExtra("Value1",id);
                     startActivity(intent);
                 }else if(i==5){
-                    String id="6";
+                     id=ID[i];
 
                     Intent intent = new Intent(Main.this,details.class);
 
@@ -123,15 +126,19 @@ public class Main extends AppCompatActivity {
                 }
 
                 ArrayList<String> name = new ArrayList<>();
+                ArrayList<String> idjson = new ArrayList<>();
+
 
                 JSONArray jsonArray=new JSONArray(responseContent.toString());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     name.add(jsonObject.getString("name"));
+                    idjson.add(jsonObject.getString("id"));
                     stringArray = name.toArray(new String[i]);
+                    ID = idjson.toArray(new String[i]);
                 }
 
-                return stringArray;
+                return ID;
 
             } catch (IOException e) {
                 connection.disconnect();
@@ -142,7 +149,7 @@ public class Main extends AppCompatActivity {
                 connection.disconnect();
             }
 
-            return stringArray;
+            return null;
         }
 
         @Override
@@ -150,6 +157,7 @@ public class Main extends AppCompatActivity {
             super.onPostExecute(strings);
             CustomAdapter adapter = new CustomAdapter(getApplicationContext(),stringArray,image);
             list.setAdapter(adapter);
+
         }
 
 
