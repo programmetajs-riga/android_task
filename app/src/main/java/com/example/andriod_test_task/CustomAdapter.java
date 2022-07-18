@@ -40,8 +40,8 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.activity_custom_list_view,null);
-        TextView sporttext = (TextView) view.findViewById(R.id.sportname);
-        ImageView sportimg = (ImageView) view.findViewById(R.id.image);
+        TextView sporttext = (TextView) view.findViewById(R.id.sportname); // используй какой то один стиль для переменных либо sportText / sport_text
+        ImageView sportimg = (ImageView) view.findViewById(R.id.image); // используй какой то один стиль для переменных либо sportImg / sport_img
         sporttext.setText(sportname[i]);
         sportimg.setImageResource(sportimages[i]);
 

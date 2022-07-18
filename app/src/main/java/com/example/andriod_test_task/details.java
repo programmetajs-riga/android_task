@@ -32,15 +32,15 @@ public class details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details);
 
-        Button btn = findViewById(R.id.backbtn);
+        Button btn = findViewById(R.id.backbtn); // что за btn? для чего это кнопка
 
-        names=findViewById(R.id.name);
-       address=findViewById(R.id.adress);
-        phone=findViewById(R.id.phone);
-        prices=findViewById(R.id.price);
+        names=findViewById(R.id.name); // оступы "..s = f..."
+       address=findViewById(R.id.adress); // оступы "..s = f..." и слева табуляция
+        phone=findViewById(R.id.phone); // оступы "..e = f..." и слева табуляция
+        prices=findViewById(R.id.price); // _..._
 
 
-        id= getIntent().getStringExtra("Value1");
+        id= getIntent().getStringExtra("Value1"); // что значит Value1 ?
 
         new ConnectionJson().execute(id);
 
@@ -55,14 +55,14 @@ public class details extends AppCompatActivity {
 
    public class ConnectionJson extends AsyncTask<String, String, String> {
 
-
+// зачем такой конский отступ ?
 
         @Override
         protected String doInBackground(String... strings) {
-            String urlid=strings[0];
+            String urlid=strings[0]; // не лучшее обращение к первому элементу. лучше через .first()
             BufferedReader readers;
             StringBuffer responseContent = new StringBuffer();
-
+// зачем такой конский отступ ?
 
             try {
                 String line;
@@ -80,22 +80,22 @@ public class details extends AppCompatActivity {
                 JSONObject jsonObject =new JSONObject(content);
 
 
-                String name = jsonObject.getString("name");
-                String adress = jsonObject.getString("address");
-                String phones = jsonObject.getString("phone");
+                String name = jsonObject.getString("name");  // переделать и обеденить в dictionary / object
+                String adress = jsonObject.getString("address"); // переделать и обеденить в dictionary / object
+                String phones = jsonObject.getString("phone"); // переделать и обеденить в dictionary / object
                 try{
-                    String price = jsonObject.getString("price");
-                    String currency = jsonObject.getString("currency");
+                    String price = jsonObject.getString("price"); // переделать и обеденить в dictionary / object
+                    String currency = jsonObject.getString("currency"); // переделать и обеденить в dictionary / object
                     prices.setText(price + currency);
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
-
+// зачем такой конский отступ ?
 
                 names.setText(name);
                 address.setText(adress);
                 phone.setText(phones);;
-
+// зачем такой конский отступ ?
 
 
                 return null;
@@ -111,7 +111,7 @@ public class details extends AppCompatActivity {
 
             return null;
         }
-
+// зачем такой конский отступ ?
 
     }
     public void back(){
