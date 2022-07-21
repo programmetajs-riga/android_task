@@ -1,22 +1,23 @@
 package com.example.andriod_test_task;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.TreeSet;
+
 
 public class details extends AppCompatActivity {
 
@@ -32,38 +33,31 @@ public class details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details);
 
-        Button btn = findViewById(R.id.backbtn); // что за btn? для чего это кнопка
+        Button BtnBack = findViewById(R.id.backbtn);
 
-        names=findViewById(R.id.name); // оступы "..s = f..."
-       address=findViewById(R.id.adress); // оступы "..s = f..." и слева табуляция
-        phone=findViewById(R.id.phone); // оступы "..e = f..." и слева табуляция
-        prices=findViewById(R.id.price); // _..._
-
-
-        id= getIntent().getStringExtra("Value1"); // что значит Value1 ?
+         names = findViewById(R.id.name);
+         address = findViewById(R.id.adress);
+         phone = findViewById(R.id.phone);
+         prices = findViewById(R.id.price);
+         id= getIntent().getStringExtra("id");
 
         new ConnectionJson().execute(id);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        BtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 back();
             }
         });
-
     }
 
    public class ConnectionJson extends AsyncTask<String, String, String> {
-
-// зачем такой конский отступ ?
-
         @Override
-        protected String doInBackground(String... strings) {
-            String urlid=strings[0]; // не лучшее обращение к первому элементу. лучше через .first()
+        protected String doInBackground(String... id) {
+            TreeSet<String> tree = new TreeSet<String>(Arrays.asList(id));
+            String urlid= tree.first();
             BufferedReader readers;
             StringBuffer responseContent = new StringBuffer();
-// зачем такой конский отступ ?
-
             try {
                 String line;
                 URL url = new URL("https://engine.free.beeceptor.com/api/getSportDetails?sportId="+urlid);
@@ -74,29 +68,29 @@ public class details extends AppCompatActivity {
 
                     responseContent.append(line);
                 }
-
                 String content = responseContent.toString();
-
                 JSONObject jsonObject =new JSONObject(content);
+                HashMap<String, Object> map = new HashMap<String, Object>();
 
+                map.put("name",jsonObject.getString("name"));
+                map.put("adress",jsonObject.getString("address"));
+                map.put("phone",jsonObject.getString("phone"));
 
-                String name = jsonObject.getString("name");  // переделать и обеденить в dictionary / object
-                String adress = jsonObject.getString("address"); // переделать и обеденить в dictionary / object
-                String phones = jsonObject.getString("phone"); // переделать и обеденить в dictionary / object
+                String name = String.valueOf(map.get("name"));
+                String adress = String.valueOf(map.get("adress"));
+                String phones = String.valueOf(map.get("phone"));
                 try{
-                    String price = jsonObject.getString("price"); // переделать и обеденить в dictionary / object
-                    String currency = jsonObject.getString("currency"); // переделать и обеденить в dictionary / object
+                    map.put("price",jsonObject.getString("price"));
+                    map.put("currency",jsonObject.getString("currency"));
+                    String price = String.valueOf(map.get("price"));
+                    String currency = String.valueOf(map.get("currency"));
                     prices.setText(price + currency);
-                }catch (JSONException e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-// зачем такой конский отступ ?
-
                 names.setText(name);
                 address.setText(adress);
                 phone.setText(phones);;
-// зачем такой конский отступ ?
-
 
                 return null;
 
@@ -108,12 +102,10 @@ public class details extends AppCompatActivity {
             finally {
                 connection.disconnect();
             }
-
             return null;
         }
-// зачем такой конский отступ ?
-
     }
+
     public void back(){
         Intent intent = new Intent(this, Main.class);
         startActivity(intent);

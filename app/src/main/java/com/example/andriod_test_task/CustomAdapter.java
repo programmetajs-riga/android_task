@@ -10,21 +10,21 @@ import android.widget.TextView;
 
 public class CustomAdapter extends BaseAdapter {
 
-    Context context;
-    String[] sportname;
-    int sportimages[];
-    LayoutInflater inflater;
+    Context Context;
+    String[] SportName;
+    int SportImages[];
+    LayoutInflater Inflater;
 
     public CustomAdapter(Context ctx, String[] sportname, int[] sportimages){
-        this.context= ctx;
-        this.sportname=sportname;
-        this.sportimages=sportimages;
-        this.inflater=LayoutInflater.from(ctx);
+        this.Context= ctx;
+        this.SportName=sportname;
+        this.SportImages=sportimages;
+        this.Inflater=LayoutInflater.from(ctx);
     }
 
     @Override
     public int getCount() {
-        return sportname.length;
+        return SportName.length;
     }
 
     @Override
@@ -39,11 +39,11 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.activity_custom_list_view,null);
-        TextView sporttext = (TextView) view.findViewById(R.id.sportname); // используй какой то один стиль для переменных либо sportText / sport_text
-        ImageView sportimg = (ImageView) view.findViewById(R.id.image); // используй какой то один стиль для переменных либо sportImg / sport_img
-        sporttext.setText(sportname[i]);
-        sportimg.setImageResource(sportimages[i]);
+        view = Inflater.inflate(R.layout.activity_custom_list_view,null);
+        TextView SportText = (TextView) view.findViewById(R.id.sportname);
+        ImageView SportImg = (ImageView) view.findViewById(R.id.image);
+        SportText.setText(SportName[i]);
+        SportImg.setImageResource(SportImages[i]);
 
         return view;
     }

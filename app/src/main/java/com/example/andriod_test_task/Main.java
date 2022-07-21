@@ -1,119 +1,55 @@
 package com.example.andriod_test_task;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-// зачем такой конский отступ ?
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-// зачем такой конский отступ ?
-
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main extends AppCompatActivity {
-// зачем такой конский отступ ?
-
-    String stringArray[]={};
+    String[] stringArray ={};
     int image[] = {R.drawable.rugby,R.drawable.basketball,R.drawable.cricket,R.drawable.box,R.drawable.rugby,R.drawable.soccer};
     ListView list;
     String ID[];
     String id;
     private static HttpURLConnection connection;
-// зачем такой конский отступ ?
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         list=findViewById(R.id.view);
-
         new ConnectionJson().execute();
-// зачем такой конский отступ ?
-
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i==0){ // зачем эта проверка, что она проверяет? зачем дублировать одно и тоже в 6 экземплярах?
-                     id=ID[i];
-
+                    id=ID[i];
                     Intent intent = new Intent(Main.this,details.class);
-
-                    intent.putExtra("Value1",id);  // что значит Value1 ?
+                    intent.putExtra("id",id);
                     startActivity(intent);
-
-                }else if(i==1){ // зачем эта проверка, что она проверяет? зачем дублировать одно и тоже в 6 экземплярах?
-                     id=ID[i];
-// зачем такой конский отступ ?
-
-                    Intent intent = new Intent(Main.this,details.class);
-
-                    intent.putExtra("Value1",id);  // что значит Value1 ?
-                    startActivity(intent);
-
-                }else if(i==2){ // зачем эта проверка, что она проверяет? зачем дублировать одно и тоже в 6 экземплярах?
-                     id=ID[i];
-
-                    Intent intent = new Intent(Main.this,details.class);
-
-                    intent.putExtra("Value1",id);  // что значит Value1 ?
-                    startActivity(intent);
-                }else if(i==3){ // зачем эта проверка, что она проверяет? зачем дублировать одно и тоже в 6 экземплярах?
-                     id=ID[i];
-
-                    Intent intent = new Intent(Main.this,details.class);
-
-                    intent.putExtra("Value1",id); // что значит Value1 ?
-                    startActivity(intent);
-                }else if(i==4){ // зачем эта проверка, что она проверяет? зачем дублировать одно и тоже в 6 экземплярах?
-                     id=ID[i];
-
-                    Intent intent = new Intent(Main.this,details.class);
-
-                    intent.putExtra("Value1",id); // что значит Value1 ?
-                    startActivity(intent);
-                }else if(i==5){ // зачем эта проверка, что она проверяет? зачем дублировать одно и тоже в 6 экземплярах?
-                     id=ID[i];
-
-                    Intent intent = new Intent(Main.this,details.class);
-
-                    intent.putExtra("Value1",id); // что значит Value1 ?
-                    startActivity(intent);
-                }
-
             }
         });
-
-
     }
 
-
-
     public class ConnectionJson extends AsyncTask<String, String, String[]> {
-// зачем такой конский отступ ?
-
 
         @Override
         protected String[] doInBackground(String... string) {
-
             BufferedReader readers;
             StringBuffer responseContent = new StringBuffer();
-// зачем такой конский отступ ?
-
             try {
                 String line;
                 URL url = new URL("https://engine.free.beeceptor.com/api/getServices");
@@ -121,21 +57,29 @@ public class Main extends AppCompatActivity {
                 connection.setRequestMethod("GET");
                 readers = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 while((line = readers.readLine()) != null){
-// зачем такой конский отступ ?
                     responseContent.append(line);
                 }
 
-                ArrayList<String> name = new ArrayList<>(); // переделать и обеденить в dictionary
-                ArrayList<String> idjson = new ArrayList<>();// переделать и обеденить в dictionary
-// зачем такой конский отступ ?
-
                 JSONArray jsonArray=new JSONArray(responseContent.toString());
+                HashMap<String, Object> name = new HashMap<>();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    name.add(jsonObject.getString("name")); // переделать и обеденить в dictionary
-                    idjson.add(jsonObject.getString("id"));// переделать и обеденить в dictionary
-                    stringArray = name.toArray(new String[i]); // переделать и обеденить в dictionary
-                    ID = idjson.toArray(new String[i]); // переделать и обеденить в dictionary
+                    name.put(String.valueOf(i), jsonObject.getString("name"));
+                }
+                String[] keys = new String[name.size()];
+                Object[] values = new Object[name.size()];
+                int index = 0;
+                for (Map.Entry<String, Object> mapEntry : name.entrySet()) {
+                    keys[index] = mapEntry.getKey();
+                    values[index] = mapEntry.getValue();
+                    stringArray = Arrays.copyOf(values, values.length, new String[index].getClass());
+                    index++;
+                }
+                HashMap<String, String> mapId = new HashMap<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    mapId.put(String.valueOf(i), jsonObject.getString("id"));
+                    ID = mapId.values().toArray(new String[i]);
                 }
 
                 return ID;
@@ -151,17 +95,11 @@ public class Main extends AppCompatActivity {
 
             return null;
         }
-
         @Override
         protected void onPostExecute(String[] strings){
             super.onPostExecute(strings);
             CustomAdapter adapter = new CustomAdapter(getApplicationContext(),stringArray,image);
             list.setAdapter(adapter);
-
         }
-// зачем такой конский отступ ?
-
     }
-// зачем такой конский отступ ?
-
 }
